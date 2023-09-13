@@ -5,9 +5,23 @@ class Ship {
     this.isSunk = false;
   }
 
-  hit = () => {};
+  isHit() {
+    if (this.hit >= 0 && this.hit < this.length) {
+      this.hit += 1;
+    } else if (this.hit === this.length) {
+      this.hit = this.length;
+    }
+    return this.hit;
+  }
 
-  isSunk = () => {};
+  sink() {
+    if (this.hit === this.length) {
+      this.isSunk = true;
+    } else {
+      this.isSunk = false;
+    }
+    return this.isSunk;
+  }
 }
 
 export default Ship;
