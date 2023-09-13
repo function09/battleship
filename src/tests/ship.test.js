@@ -20,7 +20,7 @@ describe("ship functions", () => {
     });
   });
 
-  describe("additional hits greater than ship", () => {
+  describe("additional hits greater than ship length", () => {
     beforeEach(() => {
       destroyer.isHit();
       destroyer.isHit();
