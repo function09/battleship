@@ -14,8 +14,26 @@ describe("gameboard functions", () => {
   });
 
   test("places a ship at the specified coordinates", () => {
-    expect(newGameboard.gameboard[0][0]).toContain("X");
-    expect(newGameboard.gameboard[0][1]).toContain("X");
-    expect(newGameboard.gameboard[0][2]).toContain("X");
+    expect(newGameboard.gameboard[0][0]).toMatchObject(newShip);
+    expect(newGameboard.gameboard[0][1]).toMatchObject(newShip);
+    expect(newGameboard.gameboard[0][2]).toMatchObject(newShip);
+  });
+
+  test("returns a ships coordinates", () => {
+    expect(newShip.coordinates).toEqual([
+      [0, 0],
+      [0, 1],
+      [0, 2],
+    ]);
+  });
+
+  test("gameboard receives attack in a coordinate not occupied by a ship", () => {
+    newGameboard.receiveAttack(0, 3);
+    expect(newGameboard.gameboard[0][3]).toContain("x");
+  });
+
+  test("gameboard receives attack in coordinate occupied by a ship", () => {
+    newGameboard.receiveAttack(0, 0);
+    expect(newGameboard.receiveAttack(0, 0)).toBe(1);
   });
 });

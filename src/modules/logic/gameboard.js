@@ -14,10 +14,18 @@ class Gameboard {
     coordinates.forEach((element) => {
       x = element[0];
       y = element[1];
-      this.gameboard[x][y] = "X";
+      this.gameboard[x][y] = ship;
     });
 
-    ship.position = coordinates;
+    ship.coordinates = coordinates;
+  }
+
+  receiveAttack(x, y) {
+    if (this.gameboard[x][y] === undefined) {
+      this.gameboard[x][y] = "x";
+    } else if (typeof this.gameboard[x][y] === "object") {
+      return this.gameboard[x][y].hit++;
+    }
   }
 }
 
