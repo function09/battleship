@@ -1,5 +1,6 @@
 class Gameboard {
   gameboard = new Array(10);
+  missedShots = [];
 
   createGameboard() {
     for (let i = 0; i < this.gameboard.length; i++) {
@@ -23,6 +24,7 @@ class Gameboard {
   receiveAttack(x, y) {
     if (this.gameboard[x][y] === undefined) {
       this.gameboard[x][y] = "x";
+      this.missedShots.push([x, y]);
     } else if (typeof this.gameboard[x][y] === "object") {
       return this.gameboard[x][y].hit++;
     }

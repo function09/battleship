@@ -1,5 +1,6 @@
 class Ship {
   constructor(length) {
+    this.coordinates = null;
     this.length = length;
     this.hit = 0;
     this.isSunk = false;

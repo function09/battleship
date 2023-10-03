@@ -27,9 +27,10 @@ describe("gameboard functions", () => {
     ]);
   });
 
-  test("gameboard receives attack in a coordinate not occupied by a ship", () => {
+  test("gameboard receives attack in a coordinate not occupied by a ship and records the missed shot", () => {
     newGameboard.receiveAttack(0, 3);
     expect(newGameboard.gameboard[0][3]).toContain("x");
+    expect(newGameboard.missedShots).toContainEqual([0, 3]);
   });
 
   test("gameboard receives attack in coordinate occupied by a ship", () => {
