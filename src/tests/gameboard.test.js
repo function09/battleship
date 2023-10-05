@@ -4,37 +4,41 @@ import Ship from "../modules/logic/ship";
 describe("gameboard functions", () => {
   const newGameboard = new Gameboard();
   const newShip = new Ship(3);
+  const newShip2 = new Ship(4);
   beforeAll(() => {
     newGameboard.createGameboard();
     newGameboard.placeShip(newShip, [
-      [0, 0],
-      [0, 1],
-      [0, 2],
+      [3, 3],
+      [3, 4],
+      [3, 5],
+    ]);
+    newGameboard.placeShip(newShip2, [
+      [2, 0],
+      [2, 1],
+      [2, 2],
     ]);
   });
 
   test("places a ship at the specified coordinates", () => {
-    expect(newGameboard.gameboard[0][0]).toMatchObject(newShip);
-    expect(newGameboard.gameboard[0][1]).toMatchObject(newShip);
-    expect(newGameboard.gameboard[0][2]).toMatchObject(newShip);
-  });
-
-  test("returns a ships coordinates", () => {
-    expect(newShip.coordinates).toEqual([
-      [0, 0],
-      [0, 1],
-      [0, 2],
-    ]);
+    expect(newGameboard.gameboardArray[3][3]).toMatchObject(newShip);
+    expect(newGameboard.gameboardArray[3][4]).toMatchObject(newShip);
+    expect(newGameboard.gameboardArray[3][5]).toMatchObject(newShip);
   });
 
   test("gameboard receives attack in a coordinate not occupied by a ship and records the missed shot", () => {
     newGameboard.receiveAttack(0, 3);
-    expect(newGameboard.gameboard[0][3]).toContain("x");
-    expect(newGameboard.missedShots).toContainEqual([0, 3]);
+    expect(newGameboard.gameboardArray[0][3]).toContain("x");
   });
 
   test("gameboard receives attack in coordinate occupied by a ship", () => {
-    newGameboard.receiveAttack(0, 0);
-    expect(newGameboard.receiveAttack(0, 0)).toBe(1);
+    newGameboard.receiveAttack(3, 3);
+    expect(newShip.hit).toBe(1);
+  });
+
+  test("if all ships are sunk return true", () => {
+    newGameboard.receiveAttack(3, 4);
+    newGameboard.receiveAttack(3, 5);
+    newShip.sink();
+    expect(newGameboard.allShipsSunk()).toBe(true);
   });
 });

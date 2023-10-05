@@ -1,12 +1,12 @@
 class Gameboard {
-  gameboard = new Array(10);
+  gameboardArray = new Array(10).fill([]);
   missedShots = [];
 
   createGameboard() {
-    for (let i = 0; i < this.gameboard.length; i++) {
-      this.gameboard[i] = new Array(10);
-      return this.gameboard;
+    for (let i = 0; i < 10; i++) {
+      this.gameboardArray[i] = new Array(10);
     }
+    return this.gameboardArray;
   }
 
   placeShip(ship, coordinates) {
@@ -15,19 +15,30 @@ class Gameboard {
     coordinates.forEach((element) => {
       x = element[0];
       y = element[1];
-      this.gameboard[x][y] = ship;
+      this.gameboardArray[x][y] = ship;
     });
-
     ship.coordinates = coordinates;
   }
 
   receiveAttack(x, y) {
-    if (this.gameboard[x][y] === undefined) {
-      this.gameboard[x][y] = "x";
+    if (this.gameboardArray[x][y] === undefined) {
+      this.gameboardArray[x][y] = "x";
       this.missedShots.push([x, y]);
-    } else if (typeof this.gameboard[x][y] === "object") {
-      return this.gameboard[x][y].hit++;
+    } else if (typeof this.gameboardArray[x][y] === "object") {
+      this.gameboardArray[x][y].isHit();
     }
+  }
+
+  allShipsSunk() {
+    let allSunk = false;
+    this.gameboardArray.forEach((subarray) => {
+      subarray.forEach((ship) => {
+        if (ship.isSunk === true) {
+          allSunk = true;
+        }
+      });
+    });
+    return allSunk;
   }
 }
 
