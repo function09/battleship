@@ -31,13 +31,12 @@ class Gameboard {
 
   allShipsSunk() {
     let allSunk = false;
-    this.gameboardArray.forEach((subarray) => {
-      subarray.forEach((ship) => {
-        if (ship.isSunk === true) {
-          allSunk = true;
-        }
-      });
-    });
+
+    for (let i = 0; i < this.gameboardArray.length; i++) {
+      if (this.gameboardArray[i].every((ship) => ship.isSunk === true)) {
+        allSunk = true;
+      }
+    }
     return allSunk;
   }
 }

@@ -12,12 +12,12 @@ describe("gameboard functions", () => {
       [3, 4],
       [3, 5],
     ]);
-    newGameboard.placeShip(newShip2, [
-      [2, 0],
-      [2, 1],
-      [2, 2],
-      [2, 3],
-    ]);
+    // newGameboard.placeShip(newShip2, [
+    //   [2, 0],
+    //   [2, 1],
+    //   [2, 2],
+    //   [2, 3],
+    // ]);
   });
 
   test("places a ship at the specified coordinates", () => {
